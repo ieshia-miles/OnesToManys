@@ -1,4 +1,4 @@
-CREATE TABLE client (
+CREATE TABLE clients (
     client_id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
@@ -17,5 +17,5 @@ CREATE TABLE service_record (
     service_type TEXT NOT NULL,
     date_received DATE NOT NULL,
     notes TEXT,
-    FOREIGN KEY (client_id) REFERENCES client(client_id)
+    FOREIGN KEY (client_id) REFERENCES clients(client_id)
 );
