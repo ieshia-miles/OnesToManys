@@ -11,7 +11,7 @@ CREATE TABLE clients (
 
 );
 
-CREATE TABLE service_record (
+CREATE TABLE service_records (
     record_id INTEGER PRIMARY KEY AUTOINCREMENT,
     client_id INTEGER NOT NULL,
     service_type TEXT NOT NULL,
