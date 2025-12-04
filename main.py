@@ -100,3 +100,26 @@ def add_service_record(service_record: Service_RecordCreate):
     connection.close()
     return("Service Record successfully added")
 
+@app.put("/clients/{client_id}")
+def update_client(client_id: int, client: ClientUpdate):
+    connection = sqlite3.connect("cityteam.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        "UPDATE clients SET first_name, last_name, phone_num, street_address, city, state_code, email WHERE client_id=?",
+        (client.first_name, client.last_name, client.phone_num, client.street_address, client.city, client.state_code, client.email, client_id)
+    )
+    connection.commit()
+    connection.close()
+    return {"message": "Client successfully updated"}
+
+@app.put("/service_records/{record_id}")
+def update_service_record(record_id: int, service_record: Service_RecordUpdate):
+    connection = sqlite3.connect("cityteam.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        "UPDATE service_records SET client_id=?, service_type=?, date_received=?, notes=? WHERE record_id=?",
+        (service_record.client_id, service_record.service_type, service_record.date_received, service_record.notes, record_id)
+    )
+    connection.commit()
+    connection.close()
+    return {"message": "Service record successfully updated"}
