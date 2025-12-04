@@ -123,3 +123,21 @@ def update_service_record(record_id: int, service_record: Service_RecordUpdate):
     connection.commit()
     connection.close()
     return {"message": "Service record successfully updated"}
+
+@app.delete("/clients/{client_id}")
+def delete_client(client_id: int):
+    connection = sqlite3.connect("cityteam.db")
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM clients WHERE client_id = ?", (client_id,))
+    connection.commit()
+    connection.close()
+    return {"message": "Client successfully deleted"}
+
+@app.delete("/service_records/{record_id}")
+def delete_service_record(record_id: int):
+    connection = sqlite3.connect("cityteam.db")
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM service_records WHERE record_id = ?", (record_id,))
+    connection.commit()
+    connection.close()
+    return {"message": "Service Record successfully deleted"}
