@@ -105,7 +105,7 @@ def update_client(client_id: int, client: ClientUpdate):
     connection = sqlite3.connect("cityteam.db")
     cursor = connection.cursor()
     cursor.execute(
-        "UPDATE clients SET first_name, last_name, phone_num, street_address, city, state_code, email WHERE client_id=?",
+        "UPDATE clients SET first_name=?, last_name=?, phone_num=?, street_address=?, city=?, state_code=?, email=? WHERE client_id=?",
         (client.first_name, client.last_name, client.phone_num, client.street_address, client.city, client.state_code, client.email, client_id)
     )
     connection.commit()
@@ -141,3 +141,14 @@ def delete_service_record(record_id: int):
     connection.commit()
     connection.close()
     return {"message": "Service Record successfully deleted"}
+
+@app.get("/clients/{client_id}/service_records")
+def get_client_service_records(client_id: int):
+    connection = sqlite3.connect("cityteam.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute("SELECT record_id, client_id, service_type, date_received, notes FROM service_records WHERE client_id = ?",(client_id,))
+    rows = cursor.fetchall()
+    connection.close()
+    service_records = [dict(row) for row in rows]
+    return {"client_id": client_id, "service_records": service_records,}
