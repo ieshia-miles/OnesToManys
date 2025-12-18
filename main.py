@@ -3,6 +3,8 @@ import sqlite3
 from pydantic import BaseModel #fastapi uses pydantic models
 from typing import Optional
 
+# http://127.0.0.1:8000/docs
+
 app = FastAPI()
 
 @app.get("/")
