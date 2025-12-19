@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewort" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <p id="status"></p>
+        <div class="layout">
+            <section>
+                <h2>Clients</h2>
+                <ul id="clientsList"></ul>
+            </section>
+
+            <section>
+                <h2>Service Records</h2>
+                <div id="recordsPanel">
+                    <p>Select a client to see service records.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="utils.js"></script>
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
