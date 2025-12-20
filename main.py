@@ -2,10 +2,22 @@ from fastapi import FastAPI
 import sqlite3
 from pydantic import BaseModel #fastapi uses pydantic models
 from typing import Optional
+from fastapi.middleware.cors import CORSMiddleware
 
 # http://127.0.0.1:8000/docs
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def home():
