@@ -26,38 +26,48 @@ def home():
 @app.get("/clients")
 def get_clients():
     connection=sqlite3.connect("cityteam.db")
+    connection.row_factory = sqlite3.Row
     cursor=connection.cursor()
-    cursor.execute("SELECT*FROM clients")
-    results = cursor.fetchall()
+    cursor.execute("SELECT * FROM clients")
+    rows = cursor.fetchall()
     connection.close()
-    return{"Clients":results}
+    clients = [dict(row) for row in rows]
+    return clients
 
 @app.get("/service_records")
 def get_service_records():
     connection=sqlite3.connect("cityteam.db")
+    connection.row_factory = sqlite3.Row
     cursor=connection.cursor()
     cursor.execute("SELECT*FROM service_records")
-    results = cursor.fetchall()
+    rows = cursor.fetchall()
     connection.close()
-    return{"Service Records":results}
+    service_records = [dict(row) for row in rows]
+    return service_records
 
 @app.get("/clients/{client_id}")
 def get_client(client_id: int):
     connection=sqlite3.connect("cityteam.db")
+    connection.row_factory = sqlite3.Row
     cursor=connection.cursor()
     cursor.execute("SELECT * FROM clients WHERE client_id = ?", (client_id,))
-    results = cursor.fetchone()
+    row = cursor.fetchone()
     connection.close()
-    return{"Client":results}
+    if row is None:
+        return {"error": "Client not found"}
+    return dict(row)
 
 @app.get("/service_records/{record_id}")
 def get_service_record(record_id: int):
     connection=sqlite3.connect("cityteam.db")
+    connection.row_factory = sqlite3.Row
     cursor=connection.cursor()
     cursor.execute("SELECT * FROM service_records WHERE record_id = ?", (record_id,))
-    results = cursor.fetchone()
+    row = cursor.fetchone()
     connection.close()
-    return{"Service Record":results}
+    if row is None:
+        return {"error": "No Service Record found"}
+    return dict(row)
 
 class ClientCreate(BaseModel):
     first_name: str
