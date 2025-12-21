@@ -1,0 +1,14 @@
+#clientsList li {
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+#clientsList li:hover {
+    background-color: #f0f0f0;
+}
+
+#clientsList li.selected {
+    background-color: #dbeafe;
+    font-weight: bold;
+}
